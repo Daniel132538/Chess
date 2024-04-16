@@ -1,6 +1,7 @@
 package Ajedrez;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import Ajedrez.Figura.Color;
 
@@ -81,4 +82,9 @@ public class Peon extends Figura{
 
         return posiblesPosiciones;
     }
+	
+	public void Coronacion() {
+		Scanner scanner = new Scanner(System.in);
+		
+	}
 }

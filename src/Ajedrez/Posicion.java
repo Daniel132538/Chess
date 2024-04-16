@@ -33,9 +33,11 @@ public class Posicion {
 	}
 	
 	public boolean contienePosicion(ArrayList<Posicion> posiciones) {
-		for (Posicion posicion: posiciones) {
-			if (this.igual(posicion)) {
-				return true;
+		if (posiciones.size() > 0){
+			for (Posicion posicion: posiciones) {
+				if (this.igual(posicion)) {
+					return true;
+				}
 			}
 		}
 		return false;

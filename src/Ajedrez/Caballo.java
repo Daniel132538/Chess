@@ -36,7 +36,7 @@ public class Caballo extends Figura{
             }
         }
 		
-		return null;
+		return posicionesPosibles;
 	}
 	
 	

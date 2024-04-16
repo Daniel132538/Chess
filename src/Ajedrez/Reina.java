@@ -12,12 +12,6 @@ public class Reina extends Figura{
 	}
 
 	@Override
-	public void Mover(Posicion posActual, Posicion PosicionNueva, Tablero tablero) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public ArrayList<Posicion> PosicionesPosiblesFigura(Figura[][] tablero, Posicion pos) {
 		// TODO Auto-generated method stub
 		ArrayList<Posicion> posicionesPosibles = new ArrayList<>();
@@ -25,6 +19,6 @@ public class Reina extends Figura{
 		posicionesPosibles.addAll(alfil.PosicionesPosiblesFigura(tablero, pos));
 		posicionesPosibles.addAll(torre.PosicionesPosiblesFigura(tablero, pos));
 
-		return null;
+		return posicionesPosibles;
 	}
 }

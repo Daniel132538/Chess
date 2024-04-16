@@ -20,7 +20,7 @@ public abstract class Figura {
 		NEGRO , BLANCO 
 	}
 
-	public void Mover(Posicion posActual, Posicion PosicionNueva, Tablero tablero) {
+	public boolean Mover(Posicion posActual, Posicion PosicionNueva, Tablero tablero) {
 		// TODO Auto-generated method stub
 		ArrayList<Posicion> posicionesPosibles = PosicionesPosiblesFigura(tablero.getTablero(), posActual);
 		if (PosicionNueva.contienePosicion(posicionesPosibles)) {
@@ -39,15 +39,17 @@ public abstract class Figura {
 	        } else {
 	            System.out.println("El " + this.getNombreFigura() + " se ha movido a la posición" + PosicionNueva.descripcion() + ".");
 	        }
+	        return true;
 		} else {
-			System.out.print("No se puede mover a la posición indicada. Las posiciones posibles para "
-					+  this.getNombreFigura() + "son:");
+			System.out.println("No se puede mover a la posición indicada.");
 			if (posicionesPosibles.size() > 0) {
+				System.out.println("Las posiciones posibles para " +  this.getNombreFigura() + "son: ");
 				for (Posicion posicion: posicionesPosibles) {
 					System.out.println("(" + posicion.getX() + "," + posicion.getY() + ")");
 				}
 			} else System.out.println("La figura escogida no puede ser movida en está posición");
 		}
+		return false;
 	}
 	
 	public abstract ArrayList<Posicion> PosicionesPosiblesFigura(Figura[][] tablero, Posicion pos);
