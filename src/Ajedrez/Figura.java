@@ -17,27 +17,52 @@ public abstract class Figura {
 	}
 	
 	public enum Color {
-		NEGRO, BLANCO
+		NEGRO , BLANCO 
+	}
+
+	public void Mover(Posicion posActual, Posicion PosicionNueva, Tablero tablero) {
+		// TODO Auto-generated method stub
+		ArrayList<Posicion> posicionesPosibles = PosicionesPosiblesFigura(tablero.getTablero(), posActual);
+		if (PosicionNueva.contienePosicion(posicionesPosibles)) {
+			boolean haComido = this.Comer(posActual, PosicionNueva, tablero.getTablero());
+			Figura figuraComida = null;
+			if (haComido) {
+	            // Guardar la figura que ha sido comida
+	            figuraComida = tablero.obtenerFigura(PosicionNueva);
+	        }
+			tablero.colocarFigura(this, PosicionNueva);
+			tablero.colocarFigura(null, posActual);
+			
+			// Mostrar el resultado del movimiento
+	        if (haComido) {
+	            System.out.println("El " + this.getNombreFigura() + " ha comido al " + figuraComida.getNombreFigura() + " en la posición " + PosicionNueva.descripcion() + ".");
+	        } else {
+	            System.out.println("El " + this.getNombreFigura() + " se ha movido a la posición" + PosicionNueva.descripcion() + ".");
+	        }
+		} else {
+			System.out.print("No se puede mover a la posición indicada. Las posiciones posibles para "
+					+  this.getNombreFigura() + "son:");
+			if (posicionesPosibles.size() > 0) {
+				for (Posicion posicion: posicionesPosibles) {
+					System.out.println("(" + posicion.getX() + "," + posicion.getY() + ")");
+				}
+			} else System.out.println("La figura escogida no puede ser movida en está posición");
+		}
 	}
 	
-	public abstract void Mover(Posicion posActual, Posicion PosicionNueva, Tablero tablero);
+	public abstract ArrayList<Posicion> PosicionesPosiblesFigura(Figura[][] tablero, Posicion pos);
 	
-	public int Comer(Posicion posActual, Posicion PosicionNueva, Figura[][] tablero) {
+	public boolean Comer(Posicion posActual, Posicion PosicionNueva, Figura[][] tablero) {
 		
 		Figura figuraActual = tablero[posActual.getX()][posActual.getY()];
 		Figura figuraNuevaPosicion = tablero[PosicionNueva.getX()][PosicionNueva.getY()];
 		
-		if (figuraNuevaPosicion == null) {
-			return 0;
-		} else if (figuraNuevaPosicion.getColor().equals(figuraActual.getColor())){
-			return -1;
-		} //else if (!figuraNuevaPosicion.getColor().equals(figuraActual.getColor())){
-		else {
-			return 1;
+		if (figuraNuevaPosicion != null && !figuraNuevaPosicion.getColor().equals(figuraActual.getColor())){
+			return true;
+		} else {
+			return false;
 		}
 	}
-	
-	public abstract ArrayList<Posicion> PosicionesPosiblesFigura(Figura[][] tablero);
 	
 	public ArrayList<Posicion> BuscarFigura(String nombre, Tablero tablero){
 		Figura[][] figura = tablero.getTablero();
